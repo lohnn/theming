@@ -11,10 +11,11 @@ class Theming {
   Theming._internal();
 
   factory Theming.fromJson(String theme) {
-    return Theming._internal()..addInput(theme);
+    return Theming._internal()..overlay(theme);
   }
 
-  addInput(String input) {
+  ///Overlays a new theme upon this one
+  overlay(String input) {
     _colors = jsonDecode(input)['colors'];
   }
 

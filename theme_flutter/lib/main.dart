@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  Theming theme = Theming();
+  Theming theme;
 
   void _incrementCounter() {
     setState(() {
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    theme.addInput("""
+    theme = Theming.fromJson("""
 {
   "color": {
     "main": "#ff00ff",
