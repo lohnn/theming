@@ -85,7 +85,7 @@ void main() {
     """;
 
     Theming theme = Theming.fromJson(_onlyColor);
-    expect(theme.getColor("main"), null);
+    expect(theme.getColor("main"), isNull);
   });
 
   test("Circular dependency two deep", () {
@@ -101,7 +101,7 @@ void main() {
     """;
 
     Theming theme = Theming.fromJson(_onlyColor);
-    expect(theme.getColor("main"), null);
+    expect(theme.getColor("main"), isNull);
   });
 
   ///Test depth multiple times to get a clear picture of time savings when
