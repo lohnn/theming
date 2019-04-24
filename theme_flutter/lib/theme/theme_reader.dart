@@ -6,6 +6,7 @@ class ThemeReader {}
 ///Theme class
 class Theming {
   Map<String, dynamic> _colors = {};
+  Map<String, Color> _colorCache = {};
 
   get colors => _colors;
 
@@ -13,9 +14,7 @@ class Theming {
 
   ///Creates a theme from json where theme data is parsed and places in the
   ///correct place
-  factory Theming.fromJson(String theme) {
-    return Theming._internal()..overlay(theme);
-  }
+  factory Theming.fromJson(String theme) => Theming._internal()..overlay(theme);
 
   ///Overlays a new theme upon this one
   ///TODO: Implement actual overlaying instead of replacing
@@ -30,15 +29,17 @@ class Theming {
   }
 
   Color _getColorInternal(String key, List<String> hasTried) {
-    if (hasTried.contains(key)) {
-      return null;
-    }
-    String color = _colors[key];
-    if (color.contains("#")) {
-      return _fromHex(color);
-    } else {
-      return _getColorInternal(color, hasTried..add(key));
-    }
+    return _colorCache.putIfAbsent(key, () {
+      if (hasTried.contains(key)) {
+        return null;
+      }
+      String color = _colors[key];
+      if (color.contains("#")) {
+        return _fromHex(color);
+      } else {
+        return _getColorInternal(color, hasTried..add(key));
+      }
+    });
   }
 }
 

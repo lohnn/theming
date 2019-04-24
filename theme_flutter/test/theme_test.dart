@@ -90,4 +90,30 @@ void main() {
     Theming theme = Theming.fromJson(_onlyColor);
     expect(theme.getColor("main"), null);
   });
+
+  ///Test depth multiple times to get a clear picture of time savings when
+  ///using cache
+  test("Speed test cache multiple times", () {
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "#ff00ff",
+        "mainText": "main",
+        "secondaryText": "mainText",
+        "secondaryText2": "secondaryText",
+        "secondaryText3": "secondaryText2",
+        "secondaryText4": "secondaryText3"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    for (int i = 0; i < 100000; i++) {
+      expect(theme.getColor("mainText"), Color(0xffff00ff));
+      expect(theme.getColor("secondaryText"), Color(0xffff00ff));
+      expect(theme.getColor("secondaryText2"), Color(0xffff00ff));
+      expect(theme.getColor("secondaryText3"), Color(0xffff00ff));
+      expect(theme.getColor("secondaryText4"), Color(0xffff00ff));
+    }
+  });
 }
