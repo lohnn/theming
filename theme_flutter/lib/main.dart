@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     theme = Theming.fromJson("""
 {
-  "color": {
+  "colors": {
     "main": "#ff00ff",
     "secondary": "#fbfbfb",
     "mainText": "#ffbbff00",
