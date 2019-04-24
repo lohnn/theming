@@ -18,13 +18,19 @@ class Theming {
     _colors = jsonDecode(input)['colors'];
   }
 
-  //TODO: Check for circular dependency
   Color getColor(String key) {
+    return _getColorInternal(key, []);
+  }
+
+  Color _getColorInternal(String key, List<String> hasTried) {
+    if (hasTried.contains(key)) {
+      return null;
+    }
     String color = _colors[key];
     if (color.contains("#")) {
       return _fromHex(color);
     } else {
-      return getColor(color);
+      return _getColorInternal(color, hasTried..add(key));
     }
   }
 }

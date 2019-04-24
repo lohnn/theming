@@ -72,7 +72,7 @@ void main() {
     """;
 
     Theming theme = Theming.fromJson(_onlyColor);
-    expect(theme.getColor("main"), throwsException);
+    expect(theme.getColor("main"), null);
   });
 
   test("Circular dependency two deep", (){
@@ -88,6 +88,6 @@ void main() {
     """;
 
     Theming theme = Theming.fromJson(_onlyColor);
-    expect(theme.getColor("main"), throwsException);
+    expect(theme.getColor("main"), null);
   });
 }
