@@ -7,7 +7,7 @@ void main() {
   test("Test add color input single depth", () {
     String _onlyColor = """
     {
-      "color": {
+      "colors": {
         "main": "#ff00ff",
         "secondary": "#fbfbfb",
         "mainText": "#ffbbff00",
@@ -33,9 +33,8 @@ void main() {
   test("Test add color input one deep", () {
     String _onlyColor = """
     {
-      "color": {
+      "colors": {
         "main": "#ff00ff",
-        "secondary": "#fbfbfb",
         "mainText": "#ffbbff00",
         "secondaryText": "main"
       }
@@ -51,9 +50,8 @@ void main() {
   test("Test add color input two deep", () {
     String _onlyColor = """
     {
-      "color": {
+      "colors": {
         "main": "#ff00ff",
-        "secondary": "#fbfbfb",
         "mainText": "main",
         "secondaryText": "mainText"
       }

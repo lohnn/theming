@@ -4,17 +4,17 @@ import 'dart:ui';
 class ThemeReader {}
 
 class Theming {
-  Map<String, dynamic> _color = {};
+  Map<String, dynamic> _colors = {};
 
-  get colors => _color;
+  get colors => _colors;
 
   addInput(String input) {
-    _color = jsonDecode(input)['color'];
+    _colors = jsonDecode(input)['colors'];
   }
 
   //TODO: Check for circular dependency
   Color getColor(String key) {
-    String color = _color[key];
+    String color = _colors[key];
     if (color.contains("#")) {
       return _fromHex(color);
     } else {
