@@ -60,4 +60,34 @@ void main() {
     expect(theme.getColor("mainText"), Color(0xffff00ff));
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
+
+  test("Circular dependency one deep", (){
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "mainText",
+        "mainText": "main"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("main"), throwsException);
+  });
+
+  test("Circular dependency two deep", (){
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "secondaryText",
+        "secondary": "#fbfbfb",
+        "mainText": "main",
+        "secondaryText": "mainText"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("main"), throwsException);
+  });
 }
