@@ -8,6 +8,12 @@ class Theming {
 
   get colors => _colors;
 
+  Theming._internal();
+
+  factory Theming.fromJson(String theme) {
+    return Theming._internal()..addInput(theme);
+  }
+
   addInput(String input) {
     _colors = jsonDecode(input)['colors'];
   }

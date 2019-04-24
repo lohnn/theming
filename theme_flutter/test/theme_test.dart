@@ -23,8 +23,7 @@ void main() {
       "secondaryText": "#ffbbff22"
     };
 
-    Theming theme = Theming();
-    theme.addInput(_onlyColor);
+    Theming theme = Theming.fromJson(_onlyColor);
     expect(theme.colors, _onlyColorExpectation);
     expect(theme.getColor("mainText"), Color(0xFFBBFF00));
     expect(theme.getColor("secondaryText"), Color(0xffbbff22));
@@ -41,8 +40,7 @@ void main() {
     }
     """;
 
-    Theming theme = Theming();
-    theme.addInput(_onlyColor);
+    Theming theme = Theming.fromJson(_onlyColor);
     expect(theme.getColor("mainText"), Color(0xFFBBFF00));
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
@@ -58,8 +56,7 @@ void main() {
     }
     """;
 
-    Theming theme = Theming();
-    theme.addInput(_onlyColor);
+    Theming theme = Theming.fromJson(_onlyColor);
     expect(theme.getColor("mainText"), Color(0xffff00ff));
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
