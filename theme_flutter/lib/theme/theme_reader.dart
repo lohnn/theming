@@ -3,6 +3,7 @@ import 'dart:ui';
 
 class ThemeReader {}
 
+///Theme class
 class Theming {
   Map<String, dynamic> _colors = {};
 
@@ -10,15 +11,20 @@ class Theming {
 
   Theming._internal();
 
+  ///Creates a theme from json where theme data is parsed and places in the
+  ///correct place
   factory Theming.fromJson(String theme) {
     return Theming._internal()..overlay(theme);
   }
 
   ///Overlays a new theme upon this one
+  ///TODO: Implement actual overlaying instead of replacing
   overlay(String input) {
     _colors = jsonDecode(input)['colors'];
   }
 
+  ///Gets the [Color] from the theme
+  ///If color is not found or a circular dependency is found [NULL] is returned
   Color getColor(String key) {
     return _getColorInternal(key, []);
   }
@@ -36,7 +42,7 @@ class Theming {
   }
 }
 
-///Input a string formatted as such #AARRGGBB or #RRGGBB
+///Input a string formatted #AARRGGBB or #RRGGBB
 Color _fromHex(String hexCode) {
   if (hexCode.startsWith('#')) {
     hexCode = hexCode.substring(1);
