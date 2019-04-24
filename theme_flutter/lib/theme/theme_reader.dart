@@ -18,6 +18,7 @@ class Theming {
   ///correct place
   factory Theming.fromJson(String theme) => Theming._internal(theme);
 
+  ///Creates a new theme based upon this one with the new theme data overlayed
   Theming overlay(String input) {
     Theming theming = Theming._new();
     theming._colors = this._colors..addAll(jsonDecode(input)['colors']);
