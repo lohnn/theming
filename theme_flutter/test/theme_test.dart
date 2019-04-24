@@ -130,7 +130,37 @@ void main() {
     }
   });
 
-  test("Test theme overlay change key to point to another point", () {
+  test("Overlay simple color values", () {
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "#ff00ff",
+        "secondary": "#ffccaa"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("main"), Color(0xffff00ff));
+    expect(theme.getColor("secondary"), Color(0xffffccaa));
+
+    String _overlay = """
+    {
+      "colors": {
+        "main": "#ffffff",
+        "secondary": "#ffaacc"
+      }
+    }
+    """;
+
+    Theming overlayedTheme = theme.overlay(_overlay);
+    expect(theme.getColor("main"), Color(0xffff00ff));
+    expect(theme.getColor("secondary"), Color(0xffffccaa));
+    expect(overlayedTheme.getColor("main"), Color(0xffffffff));
+    expect(overlayedTheme.getColor("secondary"), Color(0xffffaacc));
+  });
+
+  test("Theme overlay change key to point to another point", () {
     String _onlyColor = """
     {
       "colors": {
@@ -159,5 +189,43 @@ void main() {
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
     expect(overlayedTheme.getColor("mainText"), Color(0xffff00ff));
     expect(overlayedTheme.getColor("secondaryText"), Color(0xffffccaa));
+  });
+
+  test("Add key", () {
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "#ff00ff",
+        "secondary": "#ffccaa",
+        "mainText": "main",
+        "secondaryText": "mainText"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("mainText"), Color(0xffff00ff));
+    expect(theme.getColor("secondaryText"), Color(0xffff00ff));
+    expect(theme.getColor("thirdText"), isNull);
+    expect(theme.getColor("colorDirect"), isNull);
+
+    String _overlay = """
+    {
+      "colors": {
+        "thirdText": "secondaryText",
+        "colorDirect": "#00ff00ff"
+      }
+    }
+    """;
+
+    Theming overlayedTheme = theme.overlay(_overlay);
+    expect(theme.getColor("mainText"), Color(0xffff00ff));
+    expect(theme.getColor("secondaryText"), Color(0xffff00ff));
+    expect(theme.getColor("thirdText"), isNull);
+    expect(theme.getColor("colorDirect"), isNull);
+    expect(overlayedTheme.getColor("mainText"), Color(0xffff00ff));
+    expect(overlayedTheme.getColor("secondaryText"), Color(0xffff00ff));
+    expect(overlayedTheme.getColor("thirdText"), Color(0xffff00ff));
+    expect(overlayedTheme.getColor("colorDirect"), Color(0x00ff00ff));
   });
 }
