@@ -61,7 +61,7 @@ void main() {
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
 
-  test("Circular dependency one deep", (){
+  test("Circular dependency one deep", () {
     String _onlyColor = """
     {
       "colors": {
@@ -75,7 +75,7 @@ void main() {
     expect(theme.getColor("main"), null);
   });
 
-  test("Circular dependency two deep", (){
+  test("Circular dependency two deep", () {
     String _onlyColor = """
     {
       "colors": {
