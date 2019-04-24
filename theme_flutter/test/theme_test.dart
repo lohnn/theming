@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_flutter/theme/theme_reader.dart';
 
 void main() {
-  test("Test add color input single depth", () {
+  test("Add color input single depth", () {
     String _onlyColor = """
     {
       "colors": {
@@ -29,7 +29,7 @@ void main() {
     expect(theme.getColor("secondaryText"), Color(0xffbbff22));
   });
 
-  test("Test add color input one deep", () {
+  test("Add color input one deep", () {
     String _onlyColor = """
     {
       "colors": {
@@ -45,7 +45,7 @@ void main() {
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
 
-  test("Test add color input two deep", () {
+  test("Add color input two deep", () {
     String _onlyColor = """
     {
       "colors": {
