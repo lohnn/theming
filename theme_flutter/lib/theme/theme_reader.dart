@@ -37,6 +37,9 @@ class Theming {
         return null;
       }
       String color = _colors[key];
+      if (color == null) {
+        return null;
+      }
       if (color.contains("#")) {
         return _fromHex(color);
       } else {

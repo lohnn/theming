@@ -45,6 +45,19 @@ void main() {
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
   });
 
+  test("Try to get a key that does not exist", (){
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "#ff00ff"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("DOES NOT EXIST!"), isNull);
+  });
+
   test("Add color input two deep", () {
     String _onlyColor = """
     {
