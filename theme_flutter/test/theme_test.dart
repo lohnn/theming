@@ -116,4 +116,35 @@ void main() {
       expect(theme.getColor("secondaryText4"), Color(0xffff00ff));
     }
   });
+
+  test("Test theme overlay change key to point to another point", () {
+    String _onlyColor = """
+    {
+      "colors": {
+        "main": "#ff00ff",
+        "secondary": "#ffccaa",
+        "mainText": "main",
+        "secondaryText": "mainText"
+      }
+    }
+    """;
+
+    Theming theme = Theming.fromJson(_onlyColor);
+    expect(theme.getColor("mainText"), Color(0xffff00ff));
+    expect(theme.getColor("secondaryText"), Color(0xffff00ff));
+
+    String _overlay = """
+    {
+      "colors": {
+        "secondaryText": "secondary"
+      }
+    }
+    """;
+
+    Theming overlayedTheme = theme.overlay(_overlay);
+    expect(theme.getColor("mainText"), Color(0xffff00ff));
+    expect(theme.getColor("secondaryText"), Color(0xffff00ff));
+    expect(overlayedTheme.getColor("mainText"), Color(0xffff00ff));
+    expect(overlayedTheme.getColor("secondaryText"), Color(0xffffccaa));
+  });
 }

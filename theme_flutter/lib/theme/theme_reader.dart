@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
 
-class ThemeReader {}
-
 ///Theme class
 class Theming {
   Map<String, dynamic> _colors = {};
@@ -10,16 +8,20 @@ class Theming {
 
   get colors => _colors;
 
-  Theming._internal();
+  Theming._new();
+
+  Theming._internal(String input) {
+    _colors = jsonDecode(input)['colors'];
+  }
 
   ///Creates a theme from json where theme data is parsed and places in the
   ///correct place
-  factory Theming.fromJson(String theme) => Theming._internal()..overlay(theme);
+  factory Theming.fromJson(String theme) => Theming._internal(theme);
 
-  ///Overlays a new theme upon this one
-  ///TODO: Implement actual overlaying instead of replacing
-  overlay(String input) {
-    _colors = jsonDecode(input)['colors'];
+  Theming overlay(String input) {
+    Theming theming = Theming._new();
+    theming._colors = this._colors..addAll(jsonDecode(input)['colors']);
+    return theming;
   }
 
   ///Gets the [Color] from the theme
