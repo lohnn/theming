@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theme_flutter/theme/theme_reader.dart';
+import 'package:theme_flutter/theme/json_theme.dart';
 
 void main() => runApp(MyApp());
 
