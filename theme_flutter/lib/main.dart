@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'theme/theme_reader.dart';
+import 'package:theme_flutter/theme/theme_reader.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,10 +8,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: JsonTheme(
+          key: Key("Outer"),
+          child: MyHomePage(title: 'Flutter Demo Home Page'),
+          json: """
+{
+  "colors": {
+    "primaryColor": "main",
+    "main": "#ff00ff",
+    "secondary": "#fbfbfb",
+    "mainText": "#ffbbff00",
+    "secondaryText": "main"
+  }
+}
+"""),
     );
   }
 }
@@ -28,7 +37,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  Theming theme;
 
   void _incrementCounter() {
     setState(() {
@@ -37,45 +45,44 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() {
-    theme = Theming.fromJson("""
-{
-  "colors": {
-    "main": "#ff00ff",
-    "secondary": "#fbfbfb",
-    "mainText": "#ffbbff00",
-    "secondaryText": "main"
-  }
-}
-""");
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: theme.getColor("main"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    return JsonTheme(
+      key: Key("Inner"),
+      json: """{
+      "colors":{
+          "primaryColor":"secondary",
+          "mainText": "mainText"
+        }
+      }""",
+      child: Builder(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.title,
+              style:
+                  TextStyle(color: JsonTheme.of(context).getColor("mainText")),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'You have pushed the button this many times:',
+                ),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.display1,
+                ),
+              ],
             ),
-          ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

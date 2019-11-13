@@ -153,7 +153,7 @@ void main() {
     }
     """;
 
-    Theming overlayedTheme = theme.overlay(_overlay);
+    Theming overlayedTheme = theme.overlayJson(_overlay);
     expect(theme.getColor("main"), Color(0xffff00ff));
     expect(theme.getColor("secondary"), Color(0xffffccaa));
     expect(overlayedTheme.getColor("main"), Color(0xffffffff));
@@ -184,7 +184,7 @@ void main() {
     }
     """;
 
-    Theming overlayedTheme = theme.overlay(_overlay);
+    Theming overlayedTheme = theme.overlayJson(_overlay);
     expect(theme.getColor("mainText"), Color(0xffff00ff));
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
     expect(overlayedTheme.getColor("mainText"), Color(0xffff00ff));
@@ -218,7 +218,7 @@ void main() {
     }
     """;
 
-    Theming overlayedTheme = theme.overlay(_overlay);
+    Theming overlayedTheme = theme.overlayJson(_overlay);
     expect(theme.getColor("mainText"), Color(0xffff00ff));
     expect(theme.getColor("secondaryText"), Color(0xffff00ff));
     expect(theme.getColor("thirdText"), isNull);
